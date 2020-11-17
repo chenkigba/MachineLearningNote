@@ -1,0 +1,218 @@
+\documentclass[UTF_8]{ctexart}
+\usepackage{graphicx, amsfonts, setspace, color, xcolor, listings}
+\begin{document}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{ltgray}{HTML}{E6E6E6}
+\lstset{ %
+language=python,                % the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+stepnumber=2,                   % the step between two line-numbers. If it's 1, each line
+                                % will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{ltgray},  % choose the background color. You must add \usepackage{colo}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,                   % adds a frame around the code
+rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks wi    thin not-black text (e.g. commens (green here))
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+title=\lstname,                   % show the filename of files included with \lstinputlisting;                                 % also try caption instead of title
+keywordstyle=\color{blue},          % keyword style
+commentstyle=\color{dkgreen},       % comment style
+stringstyle=\color{mauve},         % string literal style
+escapeinside={\%*}{*)},            % if you want to add LaTeX within your code
+morekeywords={*, git}               % if you want to add more keywords to the set
+ }
+
+
+\title{$\mathbb{HOWTOUSEGIT}$}
+\author{Gusty}
+\maketitle
+\tableofcontents
+
+\clearpage
+% 章节：本地操作
+\section{本地操作}
+\centerline{|内容清单|}
+\centerline{\rule[5pt]{12.1cm}{0.05em}}
+\begin{itemize}
+		\item 添加文件与本地提交
+		\item 版本控制与管理修改
+		\item 
+		撤销修改与删除文件
+\end{itemize}
+\centerline{\rule[5pt]{12.1cm}{0.05em}}
+
+
+% 次章节：添加文件与本地提交
+\subsection{添加文件与本地提交}
+\begin{lstlisting}[frame=shadowbox]
+$ git init                       # 初始化git本地库
+
+$ git add test.pdf               # 添加test.pdf到暂存区
+
+$ git commit -m "添加test.pdf"   # 提交添加test.pdf到版本库并备注更改说明
+\end{lstlisting}
+
+% 次章节：版本控制与管理修改
+\subsection{版本控制与管理修改}
+\begin{lstlisting}[frame=shadowbox]
+$ git log --abbrev-commit        # 查看提交历史记录 用于回到历史版本
+
+$ git reset --hard HEAD^         # 回退到上一个版本
+
+$ git relog                      # 查看命令历史记录 用于回到未来版本
+\end{lstlisting}
+
+% 次章节：撤销修改与删除文件
+\subsection{撤销修改与删除文件}
+\begin{lstlisting}[frame=shadowbox]
+$ git checkout --test.pdf        # 撤销工作区的修改(至最近add或commit的状态)
+
+$ git reset HEAD test.pdf        # 撤销缓存区的修改
+
+$ git rm test.pdf								 # 删除版本库中的test.pdf
+
+$ git commit -m "删除test.pdf"   # 提交删除test.pdf的请求
+
+$ git checkout									 # 版本库文件覆盖工作区文件(一键恢复)
+\end{lstlisting}
+
+
+\clearpage
+% 章节：远程操作
+\section{远程操作}
+\centerline{|内容清单|}
+\centerline{\rule[5pt]{12.1cm}{0.05em}}
+\begin{itemize}
+		\item 关联远程库
+		\item 克隆远程库
+		\item 
+		
+\end{itemize}
+\centerline{\rule[5pt]{12.1cm}{0.05em}}
+
+% 次章节：关联远程库
+\subsection{关联远程库}
+\begin{lstlisting}[frame=shadowbox]
+$ git remote add origin git@github.com:YourGitID/OriginFolderName.git
+# 将名为OriginFolderName的远程Repository关联到名为【origin】的分支上
+
+$ git push -u origin master
+# 首次推送【master】本地分支至【origin】远程分支上
+
+$ git push origin master
+# 推送【master】本地分支至【origin】远程分支上
+\end{lstlisting}
+
+% 次章节：克隆远程库
+\subsection{克隆远程库}
+\begin{lstlisting}[frame=shadowbox]
+$ git clone git@github.com:YourGitID/RepositoryName.git
+# 克隆远程库到当前本地文件夹
+# YourGitID:你的Git的ID
+# RepositoryName:远程库名称
+\end{lstlisting}
+
+
+\clearpage
+% 章节：分支管理
+\section{分支管理}
+
+
+% 次章节：创建与合并分支
+\subsection{创建与合并分支}
+\begin{lstlisting}[frame=shadowbox]
+$ git branch																	   # 查看所有分支
+
+$ git branch test															   # 创建名为【test】的新分支
+
+$ git switch test																 # 切换分支
+
+$ git branch -d test												     # 删除分支
+
+$ git merge --no--ff -m "合并分支test" test			 # 合并分支（拉齐进度）
+\end{lstlisting}
+			
+% 次章节：分支管理策略
+\subsection{分支管理策略}
+
+\centering
+\includegraphics[scale=0.6]{gitwork.png}
+\begin{itemize}
+		\item master：稳定正式版
+		\item beta：测试版
+		\item michael：michael的个人分支
+		\item bob：bob的个人分支
+		
+\end{itemize}
+
+\small
+\heiti
+\leftline{
+	\uline{$\mathbb{NOTE}$}
+	:我们总是在dev上测试，然后将稳定版本上传至master
+}
+
+
+\clearpage
+% 章节：标签管理
+\section{标签管理}
+\small
+\heiti
+\leftline{
+	\uline{$\mathbb{NOTE}$}
+	:标签就是固定的分支；也可以理解为某个时点上的分支
+}
+
+% 次章节：创造标签和操作标签
+\subsection{创造标签}
+\begin{lstlisting}[frame=shadowbox]
+$ git tag															  # 查看所有标签
+
+$ git show <tagname>                    # 查看标签信息
+
+$ git tag <tagname>							        # 为当前分支的当前版本打标签
+
+$ git tag <tagname> <commitid>          # 为历史版本打标签
+
+$ git log --abbrev-commit               # 查看历史commit id
+\end{lstlisting}
+
+% 次章节：操作标签
+\subsection{操作标签}
+\begin{lstlisting}[frame=shadowbox]
+$ git tag -d <tagname>                  # 删除本地标签
+
+$ git push origin <tagname>             # 推送本地标签
+
+$ git push origin --tags                # 推送全部未推送过的本地标签
+
+$ git push origin :refs/tags/<tagname>  # 删除一个远程标签
+\end{lstlisting}
+
+\clearpage
+% 章节：Git Cheat Sheet
+\section{Git Cheat Sheet}
+
+\centering
+\includegraphics[scale=0.4]{githelp.png}
+\small
+\heiti
+\leftline{
+	\uline{$\mathbb{NOTE}$}
+	:国外友人制作的Git手册
+}
+
+
+
+\end{document}
+
